@@ -2,6 +2,8 @@ import pygame;
 
 
 class Button(pygame.sprite.Sprite):
+    
+    """ clickable button """
 
     def __init__(self, groups=[], text="", width=None, height=None, acolor=(255, 255, 255),
                  icolor=(128, 128, 128), hcolor=(128, 0, 0), active=True, text_align="center", font_size=32,
@@ -37,6 +39,7 @@ class Button(pygame.sprite.Sprite):
         self.add(*groups);
 
     def get_rect_size(self, w, h):
+        """ set the size of the button based on the text if size wasn't passed as an argument """
         if w == None:
             w = self.font.get_width() + 40;
         if h == None:
@@ -44,6 +47,7 @@ class Button(pygame.sprite.Sprite):
         return int(w), int(h);
 
     def handle_text_align(self):
+        """ align the text on the button """
         if self.text_align in ("center", "center-top", "center-bottom"):
             x = (self.width - self.font.get_width()) / 2;
         elif self.text_align in ("left", "left-top", "left-bottom"):
@@ -65,9 +69,11 @@ class Button(pygame.sprite.Sprite):
         return x, y;
 
     def toggle_active(self):
+        """ enable / disable the button """
         self.active = bool(self.active - 1);
 
     def toggle_visible(self):
+        """ show / hide the button """
         if self.visible:
             self.visible = False;
             self.active = False;
@@ -76,18 +82,22 @@ class Button(pygame.sprite.Sprite):
             self.active = True;
 
     def get_clicked(self, event):
+        """ inefficiently check if the button was clicked """
         return (event.type == pygame.MOUSEBUTTONDOWN) and (self.rect.collidepoint(pygame.mouse.get_pos()));
 
     def get_hover(self):
+        """ check if somebody is hovering over the button """
         return self.rect.collidepoint(pygame.mouse.get_pos());
 
     def display(self):
+        """ draw to the button's surface (not the screen) """
         self.image.fill(self.color);
         self.image.blit(self.font, (self.text_x, self.text_y));
         pygame.draw.rect(self.image, self.border_color,
                          (0, 0, self.width, self.height-self.border_width), self.border_width);
 
     def draw(self, surface):
+        """ draw the button's surface to the screen """
         surface.blit(self.image, self.rect);
 
     def update(self, event):
