@@ -6,3 +6,5 @@ Use the up arrow key to make the player move towards the mouse. Collect the gems
 The artwork isn't the greatest, but it's the best I could do.
 
 I made this in early 2017.
+
+http://sambrunacini.com/
